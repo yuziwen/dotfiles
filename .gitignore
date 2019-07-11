@@ -1,5 +1,5 @@
-/dotbot/
-/install
-/install.conf.yaml
-/.gitmodules
-/.gitignore
+dotbot
+install
+install.conf.yaml
+.gitmodules
+
