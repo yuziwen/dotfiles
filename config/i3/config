@@ -154,3 +154,7 @@ bindsym $mod+r mode "resize"
 bar {
         status_command i3status
 }
+# set desktop background
+exec feh --bg-scale ~/Pictures/emacs-start-up.png
+# bind CapsLock to Ctrl
+exec setxkbmap -option ctrl:nocaps

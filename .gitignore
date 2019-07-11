@@ -1,0 +1,6 @@
+dotbot/
+install
+install.conf.yaml
+.gitmodules
+.git/
+
