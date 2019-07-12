@@ -36,11 +36,18 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+# bindsym $mod+d exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# screen shot
+bindsym Print exec shutter -f -e -o ~/Pictures/shot/%Y-%m-%d-%T.png  
+bindsym $mod+Print exec shutter -s -e -o ~/Pictures/shot/%Y-%m-%d-%T.png  
+
+# graphical app launcher
+bindsym $mod+Shift+a exec --no-startup-id xfce4-appfinder
 
 # change focus
 bindsym $mod+h focus left
@@ -77,14 +84,20 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+t layout tabbed
+bindsym $mod+c layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
+
+# toggle border style
+bindsym $mod+b border toggle
+
+# focus follows mouse(cursor)
+focus_follows_mouse yes
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -152,9 +165,29 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+        status_command i3status -c ~/.config/i3/i3status.conf
 }
+
 # set desktop background
-exec feh --bg-scale ~/Pictures/emacs-start-up.png
+exec feh --bg-scale ~/Pictures/Wallpapers/wallpaper.jpg
+
 # bind CapsLock to Ctrl
 exec setxkbmap -option ctrl:nocaps
+
+# volume control
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 2%+ unmute
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 2%- unmute
+bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
+
+# power manager
+set $mode_system select: lock(L) exit(E) reboot(R) poweroff(D) cancel(Esc)
+bindsym $mod+Shift+p mode "$mode_system"
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3lock -c '#000000', mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym o exec --no-startup-id systemctl poweroff, mode "default"
+    bindsym Escape mode "default"
+}
+
+exec --no-startup-id mate-power-manager
