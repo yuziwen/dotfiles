@@ -43,8 +43,8 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # screen shot
-bindsym Print exec shutter -f -e -o ~/Pictures/shot/%Y-%m-%d-%T.png  
-bindsym $mod+Print exec shutter -s -e -o ~/Pictures/shot/%Y-%m-%d-%T.png  
+bindsym Print exec shutter -f -e -o ~/Pictures/Screenshot%Y-%m-%d-%T.png  
+bindsym $mod+Print exec shutter -s -e -o ~/Pictures/Screenshot%Y-%m-%d-%T.png  
 
 # graphical app launcher
 bindsym $mod+Shift+a exec --no-startup-id xfce4-appfinder
@@ -190,4 +190,13 @@ mode "$mode_system" {
     bindsym Escape mode "default"
 }
 
+# screen brightness control
 exec --no-startup-id mate-power-manager
+
+# screen saver
+exec --no-startup-id xset s 0
+exec --no-startup-id xset dpms 120 3600
+
+# hide and show window
+bindsym $mod+minus move scratchpad
+bindsym $mod+plus scratchpad show
